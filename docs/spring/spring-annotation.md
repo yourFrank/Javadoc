@@ -2,15 +2,12 @@
 title: Spring常用注解
 tags:
   - Spring
-  - 注解
 categories:
   - Spring
   - 用法
 keywords: Spring，框架
 description: 一些常用的注解
 cover: 'https://image.imxyu.cn/file/spring-avater01.webp'
-sticky: 5
-swiper_index: 5
 abbrlink: 1a003b7b
 date: 2021-10-24 22:21:58
 ---
@@ -23,11 +20,10 @@ date: 2021-10-24 22:21:58
 
 ![spring_mind](https://image.imxyu.cn/file/spring_mind.jpg)
 
-# Spring注解
 
-## 1.向容器中注入实例对象
+## 向容器中注入实例对象
 
-### 1.1. XML文件方式
+###  XML文件方式
 
 1. 在pom中添加spring-context依赖
 
@@ -92,7 +88,7 @@ public class MainTest {
 Person [name=zhangsan, age=18, nickName=null]
 ```
 
-### 1.2 注解方式 @Bean+@Configuration
+### 注解方式 @Bean+@Configuration
 
 1、2 步不变
 
@@ -130,9 +126,9 @@ public class Main {
 }
 ```
 
-### 1.3 包扫描
+### 包扫描
 
-#### 1.3.1 XML配置包扫描
+#### XML配置包扫描
 
 ```xml
 <?xml version="1.0" encoding="UTF-8"?>
@@ -154,7 +150,7 @@ public class Main {
 </beans>
 ```
 
-####  1.3.2 注解方式配置包扫描
+####  注解方式配置包扫描
 
 ```java
 //配置类==配置文件
@@ -237,7 +233,7 @@ public class MyTypeFilter implements TypeFilter {
 }
 ```
 
-#### 1.3.3 包扫描+注解注入对象
+#### 包扫描+注解注入对象
 
 ````java
 @Controller
@@ -263,7 +259,7 @@ public class BookDao {
 }
 ```
 
-### 1.4 @Import
+### @Import
 
 上面总结了两种方式
 
@@ -273,7 +269,7 @@ public class BookDao {
 
 * 方式三：快速的给容器中导入组件：@Import
 
-#### 1.4.1 @Import({组件1，组件2}) 导入组件
+#### @Import({组件1，组件2}) 导入组件
 
 ```java
 @Configuration
@@ -297,7 +293,7 @@ public class MyConfig2 {
 }
 ```
 
-#### 1,4,2 ImportSelector
+#### ImportSelector
 
 返回需要导入组件的全类名的数组
 
@@ -341,7 +337,7 @@ public class MyConfig2 {
 }
 ```
 
-#### 1.4.3 ImportBeanDefinitionRegistrar
+#### ImportBeanDefinitionRegistrar
 
 自定义一个注册器
 
@@ -394,7 +390,7 @@ public class MyConfig2 {
 }
 ```
 
-### 1.5 使用FactoryBean
+### 使用FactoryBean
 
 使用Spring提供的FactoryBean(工厂Bean)，区别于普通的bean。
 
@@ -490,7 +486,7 @@ Color类的FactoryBean：class com.example.bean.ColorFactoryBean
 
 **Spring与其它框架整合时，用的特别多，例如整合Mybaties。**
 
-### 1.6 注册相关注解
+### 注册相关注解
 
 ####  @Scope，@Lazy
 
@@ -638,11 +634,11 @@ public class WindowsCondition implements Condition {
 }
 ```
 
-## 2. Bean的生命周期
+## Bean的生命周期
 
 Bean的生命周期由容器管理，即管理bean的：创建 -- 初始化 -- 销毁。我们可以自定义初始化和销毁方法，容器在bean进行到当前生命周期的时候来调用我们自定义的初始化和销毁方法。
 
-### 2.1. @Bean指定初始化和销毁方法
+### @Bean指定初始化和销毁方法
 
 1. 在实体类中创建初始化和销毁方法
 
@@ -701,7 +697,7 @@ Car销毁
 
 **多实例：容器不会管理整个bean，也就是说容器不会调用销毁方法，需要手动调用。**
 
-### 2.2 实体类实现接口
+### 实体类实现接口
 
 通过让bean实现**InitialzingBean**接口来定义初始化逻辑，实现**DisposableBean**接口来定义销毁逻辑。
 
@@ -746,7 +742,7 @@ public class MyConfig2 {
 
 省略测试....
 
-### 2.3 实体类注解指定(使用JSR250规范)
+### 实体类注解指定(使用JSR250规范)
 
 @PostConstruct：在bean创建完成并且属性值赋值完成后执行初始化；
 
@@ -805,7 +801,7 @@ Dog构造之后调用...@PostConstruct
 Dog对应的bean移除之前调用...@PreDestroy
 ```
 
-### 2.4 BeanPostProcessor后置处理器
+### BeanPostProcessor后置处理器
 
 在bean的**初始化方法之前**和**初始化方法之后**进行一些处理工作。注意是初始化方法，和销毁方法没有一毛钱的关系。
 
@@ -854,9 +850,9 @@ postProcessAfterInitialization--car--com.example.bean.Car@7c417213
 Car的销毁方法
 ```
 
-## 3.属性赋值相关的注解
+## 属性赋值相关的注解
 
-#### 3.1 @Value
+#### @Value
 
 ```java
  /**
@@ -922,9 +918,9 @@ public class MyConfigOfPropertyValues {
 
 从环境变量中获取也是可以的
 
-## 4.自动装配
+## 自动装配
 
-#### 4.1. @Autowired
+#### @Autowired
 
 1. 默认优先按照类型去容器中找对应的组件：applicationContext.getBean(BookServiceImpl.class);
 2. 如果找到多个相同类型的组件，将会按照属性的名称作为组件的id去容器中查找。
@@ -933,7 +929,7 @@ public class MyConfigOfPropertyValues {
 
 
 
-##### 4.1.1. @Autowired标注在方法头上
+##### @Autowired标注在方法头上
 
 ![autowired_method1](https://image.imxyu.cn/file/autowired_method1.png)
 
@@ -941,19 +937,19 @@ public class MyConfigOfPropertyValues {
 
 ![autowired_method2](https://image.imxyu.cn/file/autowired_method2.png)
 
-##### 4.1.2 @Autowired标注在构造器上
+##### @Autowired标注在构造器上
 
 如果组件只有一个参数构造器，这个有参构造器的@Autowired可以省略，参数位置的组件还是可以自动从容器中获取。
 
 ![autowired_construct](https://image.imxyu.cn/file/autowired_construct.png)
 
-##### 4.1.3. @Autowired标注在参数位置
+##### @Autowired标注在参数位置
 
 ![autowired_param1](https://image.imxyu.cn/file/autowired_param1.png)
 
 ![autowired_param1](https://image.imxyu.cn/file/autowired_param2.png)
 
-#### 4.2 @Autowired和@Qualifier配合
+#### @Autowired和@Qualifier配合
 
 ![Qualifier](https://image.imxyu.cn/file/Qualifier.png)
 
@@ -963,13 +959,13 @@ public class MyConfigOfPropertyValues {
 
 ![autowired2](https://image.imxyu.cn/file/autowired2.png)
 
-#### 4.3 @Primary设置首选bean
+#### @Primary设置首选bean
 
 让spring进行自动装配的时候，默认使用首选的bean。
 
 ![primary](https://image.imxyu.cn/file/primary.png)
 
-#### 4.4 @Resource和@Inject
+#### @Resource和@Inject
 
 1. @Resource属于JSR250规范，@Inject属于JSR330规范。都是java规范。
 
@@ -989,7 +985,7 @@ public class MyConfigOfPropertyValues {
 
 **推荐使用spring自带的**。
 
-## 5. @Profile
+## @Profile
 
  Profile: 指定组件在哪个环境中的情况下才能被注册到容器中，不指定任何环境下都能指定。
  加了环境标识的bean，只有对应的环境被激活了，才会注册到容器中。但是如果标了default，则会默认加载这个。
