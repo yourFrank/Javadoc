@@ -1,0 +1,6 @@
+- [返回上一级 [设计模式]](设计模式/)
+- [structural_type](设计模式/structural_type/)
+  - [结构型-代理模式](设计模式/structural_type/结构型-代理模式.md)
+  - [结构型-桥接模式](设计模式/structural_type/结构型-桥接模式.md)
+  - [结构型-组合&外观&享元](设计模式/structural_type/结构型-组合&外观&享元.md)
+  - [结构型-适配器&装饰器](设计模式/structural_type/结构型-适配器&装饰器.md)
