@@ -1,9 +1,9 @@
 ---
 title: Spring常用注解
 tags:
-  - Spring
+  - spring
 categories:
-  - Spring
+  - spring
   - 用法
 keywords: Spring，框架
 description: 一些常用的注解
