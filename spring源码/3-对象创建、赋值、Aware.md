@@ -204,13 +204,11 @@ public class AnnotationMainTest {
 
 ---
 
-### 
-
 **至此对象创建就已经完成了。**
 
 **接下来我们看一下aware赋值是什么时候，我们直接放行到下一个断点：**
 
-## 实现Aware接口赋值
+## ApplicationContextAwareProcessor回调Aware接口赋值
 
 ![image-20211218202822407](https://image.imxyu.cn/file/image-20211218202822407.png)
 
@@ -230,13 +228,13 @@ public class AnnotationMainTest {
 
 ![image-20211218204109043](https://image.imxyu.cn/file/image-20211218204109043.png)
 
-获取所有的后置处理器执行
+获取所有的BeanPostProcessor类型的后置处理器执行
 
 ![image-20211218204130912](https://image.imxyu.cn/file/image-20211218204130912.png)
 
 因为我们实现了ApplicationContextAware 和MessageAware，所以进入下面的else逻辑。
 
-这个接口是我们后置处理器**BeanProcessor**中的一个，所有的功能增强都是通过后置处理器完成的。如果我们想创建完Bean后进行功能增强，都是通过这些后置处理器完成的
+这个接口是我们后置处理器**BeanProcessor**中的一个，所有的功能增强都是通过后置处理器完成的。如果我们想创建完Bean后进行功能增强，都是通过这些后置处理器完成的，后面我们会详细讲一下这些后置处理器
 
 ![image-20211218205327435](https://image.imxyu.cn/file/image-20211218205327435.png)
 
@@ -291,11 +289,13 @@ public class MainTest {
 
 ![image-20211219100840086](https://image.imxyu.cn/file/image-20211219100840086.png)
 
+### 流程
+
 进入doCreatebean，在这里我们能看到之前对象创建和Aware进入的位置
 
 ![image-20211219101401378](https://image.imxyu.cn/file/image-20211219101401378.png)
 
-进入属性赋值方法，首先拿到了Bean定义信息中所有的键值对，我们看一下这个PropertyValues。
+进入属性赋值方法，首先拿到了Bean定义信息中所有的键值对（xml文件中写的那些），我们看一下这个PropertyValues。
 
 ![image-20211219102038660](https://image.imxyu.cn/file/image-20211219102038660.png)
 
@@ -339,6 +339,8 @@ public class MainTest {
 
 ## @Autowired属性注入
 
+刚刚我们看了在xml文件中定义的是如何赋值的，下面我们看看使用@Autowired注解属性注入的是如何赋值的
+
 ### debug位置
 
 Person类：
@@ -362,7 +364,7 @@ public class AnnotationMainTest {
 }
 ```
 
-
+### 流程
 
 ![image-20211219105734444](https://image.imxyu.cn/file/image-20211219105734444.png)
 
@@ -370,7 +372,7 @@ public class AnnotationMainTest {
 
 ![image-20211219105943797](https://image.imxyu.cn/file/image-20211219105943797.png)
 
-获取注解的**后置处理器**实行注入(这里又是一个后置处理器)，并且传入所有Bean属性键值对，已经创建好的Person，和beanName
+获取所有实现了**InstantiationAwareBeanPostProcessor**后置处理器（spring的自动注入注解就是通过实现了这个后置处理器接口来实现的）实行注入(这里又是一个后置处理器)，并且传入所有Bean属性键值对pvs，已经创建好的Person，和beanName
 
 ![image-20211219110311575](https://image.imxyu.cn/file/image-20211219110311575.png)
 
@@ -384,7 +386,7 @@ public class AnnotationMainTest {
 
 ![image-20211219111327785](https://image.imxyu.cn/file/image-20211219111327785.png)
 
-1、找所有属性中标注了@Autowired\@Value\@Inject注解
+1、找所有属性中标注了@Autowired\@Value\@Inject注解 （使用反射工具类）
 
 2、拿到所有方法，看有没有@Autowired注解
 
