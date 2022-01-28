@@ -1123,3 +1123,4 @@ public void test01(){
 ```
 
 > 使用之前说的@Conditional 也可以实现，当然@Conditional注解，可以自定义任意将组件加入到容器的规则
+
