@@ -1,0 +1,5 @@
+- [返回上一级 [tree]](算法/tree/)
+- [Binary Tree Pruning](算法/tree/Binary Tree Pruning/)
+  - [lc1325_删除给定值的叶子节点](算法/tree/Binary Tree Pruning/lc1325_删除给定值的叶子节点.md)
+  - [lc669_修剪二叉搜索树](算法/tree/Binary Tree Pruning/lc669_修剪二叉搜索树.md)
+  - [lc814_二叉树剪枝](算法/tree/Binary Tree Pruning/lc814_二叉树剪枝.md)
