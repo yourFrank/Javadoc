@@ -1,5 +1,0 @@
-- [返回上一级 [BFS and DFS]](算法/BFS and DFS/)
-- [DFS](算法/BFS and DFS/DFS/)
-  - [lc1614. 括号的最大嵌套深度](算法/BFS and DFS/DFS/lc1614. 括号的最大嵌套深度.md)
-  - [lc22. 括号生成](算法/BFS and DFS/DFS/lc22. 括号生成.md)
-  - [lc301. 删除无效的括号](算法/BFS and DFS/DFS/lc301. 删除无效的括号.md)

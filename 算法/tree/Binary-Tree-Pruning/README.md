@@ -1,0 +1,5 @@
+- [返回上一级 [tree]](算法/tree/)
+- [Binary-Tree-Pruning](算法/tree/Binary-Tree-Pruning/)
+  - [1325.删除给定值的叶子节点](算法/tree/Binary-Tree-Pruning/1325.删除给定值的叶子节点.md)
+  - [669.修剪二叉搜索树](算法/tree/Binary-Tree-Pruning/669.修剪二叉搜索树.md)
+  - [814.二叉树剪枝](算法/tree/Binary-Tree-Pruning/814.二叉树剪枝.md)

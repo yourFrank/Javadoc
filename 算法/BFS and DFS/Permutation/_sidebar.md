@@ -1,6 +1,0 @@
-- [返回上一级 [BFS and DFS]](算法/BFS and DFS/)
-- [Permutation](算法/BFS and DFS/Permutation/)
-  - [lc46_全排列](算法/BFS and DFS/Permutation/lc46_全排列.md)
-  - [lc47_全排列 II](算法/BFS and DFS/Permutation/lc47_全排列 II.md)
-  - [lc784_字母大小写全排列](算法/BFS and DFS/Permutation/lc784_字母大小写全排列.md)
-  - [lc996. 正方形数组的数目](算法/BFS and DFS/Permutation/lc996. 正方形数组的数目.md)

@@ -1,4 +1,0 @@
-- [返回上一级 [tree]](算法/tree/)
-- [Serialize and Deserialize Binary Tree](算法/tree/Serialize and Deserialize Binary Tree/)
-  - [lc297_二叉树的序列化与反序列化](算法/tree/Serialize and Deserialize Binary Tree/lc297_二叉树的序列化与反序列化.md)
-  - [lc449_序列化和反序列化二叉搜索树](算法/tree/Serialize and Deserialize Binary Tree/lc449_序列化和反序列化二叉搜索树.md)

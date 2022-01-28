@@ -1,5 +1,0 @@
-- [返回上一级 [tree]](算法/tree/)
-- [Binary Tree Maximum Path Sum](算法/tree/Binary Tree Maximum Path Sum/)
-  - [lc124_ 二叉树中的最大路径和](算法/tree/Binary Tree Maximum Path Sum/lc124_ 二叉树中的最大路径和.md)
-  - [lc543_二叉树的直径](算法/tree/Binary Tree Maximum Path Sum/lc543_二叉树的直径.md)
-  - [lc687_最长同值路径](算法/tree/Binary Tree Maximum Path Sum/lc687_最长同值路径.md)

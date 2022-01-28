@@ -1,4 +1,0 @@
-- [返回上一级 [BST]](算法/BST/)
-- [Validate Binary Search Tree](算法/BST/Validate Binary Search Tree/)
-  - [lc530_ 二叉搜索树的最小绝对差](算法/BST/Validate Binary Search Tree/lc530_ 二叉搜索树的最小绝对差.md)
-  - [lc98_验证二叉搜索树](算法/BST/Validate Binary Search Tree/lc98_验证二叉搜索树.md)

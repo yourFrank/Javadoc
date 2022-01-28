@@ -1,4 +1,0 @@
-- [返回上一级 [tree]](算法/tree/)
-- [Lowest Common Ancestor of a Binary Tree](算法/tree/Lowest Common Ancestor of a Binary Tree/)
-  - [lc235_ 二叉搜索树的最近公共祖先](算法/tree/Lowest Common Ancestor of a Binary Tree/lc235_ 二叉搜索树的最近公共祖先.md)
-  - [lc236_二叉树最近公共祖先](算法/tree/Lowest Common Ancestor of a Binary Tree/lc236_二叉树最近公共祖先.md)
