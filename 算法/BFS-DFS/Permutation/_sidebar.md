@@ -1,7 +1,0 @@
-- [返回上一级 [BFS-DFS]](算法/BFS-DFS/)
-- [Permutation](算法/BFS-DFS/Permutation/)
-  - [46.全排列](算法/BFS-DFS/Permutation/46.全排列.md)
-  - [47.全排列II](算法/BFS-DFS/Permutation/47.全排列II.md)
-  - [784.字母大小写全排列](算法/BFS-DFS/Permutation/784.字母大小写全排列.md)
-  - [943.待完成](算法/BFS-DFS/Permutation/943.待完成.md)
-  - [996.正方形数组的数目](算法/BFS-DFS/Permutation/996.正方形数组的数目.md)

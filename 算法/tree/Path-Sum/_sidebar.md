@@ -1,5 +1,0 @@
-- [返回上一级 [tree]](算法/tree/)
-- [Path-Sum](算法/tree/Path-Sum/)
-  - [112.路径总和](算法/tree/Path-Sum/112.路径总和.md)
-  - [113.路径总和II](算法/tree/Path-Sum/113.路径总和II.md)
-  - [437.路径总和III](算法/tree/Path-Sum/437.路径总和III.md)

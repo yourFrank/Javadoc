@@ -1,6 +1,0 @@
-- [返回上一级 [设计模式]](设计模式/)
-- [behavior_type](设计模式/behavior_type/)
-  - [行为型-模板模式](设计模式/behavior_type/行为型-模板模式.md)
-  - [行为型-策略模式&状态模式](设计模式/behavior_type/行为型-策略模式&状态模式.md)
-  - [行为型-观察者模式](设计模式/behavior_type/行为型-观察者模式.md)
-  - [行为型-责任链模式](设计模式/behavior_type/行为型-责任链模式.md)

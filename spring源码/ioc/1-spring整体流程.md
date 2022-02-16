@@ -11,7 +11,7 @@ description: 先大体看一下spring的整体脉络，后面看源码的时候�
 abbrlink: 5185347b
 date: 2021-12-01 21:28:43
 ---
-# spring整体流程
+## spring整体流程
 
 > 此处省略spring源码搭建过程，笔者采用gitee镜像github仓库，使用官方推荐的gradle搭建。此处为了gradle版本一致性，不建议使用本地gradle仓库
 
@@ -39,11 +39,11 @@ spring ioc最简单来说就是读取我们的配置文件/注解，利用反射
 
 下面我们来对这几个基础接口进行简要的分析：
 
-# 核心接口类
+## 核心接口类
 
 
 
-## Resources
+### Resources
 
 所有的资源(可以是xml文件，可以是注解,网络磁盘,url地址.....)。   ResourceLoader：加载各种资源
 
@@ -61,7 +61,7 @@ Resource相应的实现类
 
 ![image-20211201200510768](https://image.imxyu.cn/file/image-20211201200510768.png)
 
-## ResourceLoader
+### ResourceLoader
 
 用来加载不同位置的URL路径，将其转换成资源Resource。
 
@@ -89,7 +89,7 @@ Resourceloader的实现类：
 
 > ResourceLoader是我们的策略接口，而AbstractApplication 则是环境类持有该接口，根据不同的资源路径使用不同的loader进行加载。下面马上讲到
 
-## BeanFactory
+### BeanFactory
 
 Spring最大的工厂：是工厂方法模式，没有其他产品线，只有Bean
 
@@ -112,11 +112,11 @@ BeanFactory的子类
 - ListableBeanFacotory：有获取所有BeanDefinition信息的名字、数量等方法.. 实现类是DefaultListableBeanFactory，保存了ioc容器中的核心信息
 - AutowireCapableBeanFactory：提供自动装配能力
 
-### ListableBeanFacotory的实现类
+#### ListableBeanFacotory的实现类
 
 ![image-20211101213717377](https://image.imxyu.cn/file/image-20211101213717377.png)
 
-#### AbastactApplicationContext
+##### AbastactApplicationContext
 
 资源加载器ResourceLoader的环境类
 
@@ -126,7 +126,7 @@ BeanFactory的子类
 
 ![image-20211101212613398](https://image.imxyu.cn/file/image-20211101212613398.png)
 
-#### DefaultListableBeanFactory
+##### DefaultListableBeanFactory
 
 该类保存了Bean的所有定义信息（档案馆）
 

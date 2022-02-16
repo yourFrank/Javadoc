@@ -1,7 +1,0 @@
-- [返回上一级 [算法]](算法/)
-- [Divide-conquer](算法/Divide-conquer/)
-  - [153.寻找旋转排序数组中的最小值](算法/Divide-conquer/153.寻找旋转排序数组中的最小值.md)
-  - [154.寻找旋转排序数组中的最小值II](算法/Divide-conquer/154.寻找旋转排序数组中的最小值II.md)
-  - [169.多数元素](算法/Divide-conquer/169.多数元素.md)
-  - [315.计算右侧小于当前元素的个数](算法/Divide-conquer/315.计算右侧小于当前元素的个数.md)
-  - [912.排序数组](算法/Divide-conquer/912.排序数组.md)

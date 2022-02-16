@@ -1,3 +1,0 @@
-- [返回上一级 [BST]](算法/BST/)
-- [Convert-Sorted-Array-to-Binary-Search-Tree](算法/BST/Convert-Sorted-Array-to-Binary-Search-Tree/)
-  - [108.将有序数组转换为二叉搜索树](算法/BST/Convert-Sorted-Array-to-Binary-Search-Tree/108.将有序数组转换为二叉搜索树.md)

@@ -1,6 +1,0 @@
-1、这里每次要画一下树图，比较清楚
-2、题解中的LinkedList换成ArrayList 快一些，这里面的没换，后面想起来的
-/**
- * 因为只会增删最后一个节点，所有使用ArrayList比LinkedList快
- * LinkedList,add到尾节点需要时间复杂度为链表长度，ArrayList (O1)
- */

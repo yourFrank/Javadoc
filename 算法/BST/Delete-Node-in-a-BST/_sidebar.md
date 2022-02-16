@@ -1,3 +1,0 @@
-- [返回上一级 [BST]](算法/BST/)
-- [Delete-Node-in-a-BST](算法/BST/Delete-Node-in-a-BST/)
-  - [450.删除二叉搜索树中的节点](算法/BST/Delete-Node-in-a-BST/450.删除二叉搜索树中的节点.md)

@@ -1,8 +1,0 @@
-- [返回上一级 [tree]](算法/tree/)
-- [traversal](算法/tree/traversal/)
-  - [1302.层数最深叶子节点和](算法/tree/traversal/1302.层数最深叶子节点和.md)
-  - [429.N叉树的层序遍历](算法/tree/traversal/429.N叉树的层序遍历.md)
-  - [589.N叉树的前序遍历](算法/tree/traversal/589.N叉树的前序遍历.md)
-  - [590.N叉树的后序遍历](算法/tree/traversal/590.N叉树的后序遍历.md)
-  - [94_144_145二叉树的遍历](算法/tree/traversal/94_144_145二叉树的遍历.md)
-  - [987.二叉树的垂序遍历](算法/tree/traversal/987.二叉树的垂序遍历.md)

@@ -1,3 +1,0 @@
-- [返回上一级 [BST]](算法/BST/)
-- [Find-Mode-in-Binary-Search-Tree](算法/BST/Find-Mode-in-Binary-Search-Tree/)
-  - [501.二叉搜索树中的众数](算法/BST/Find-Mode-in-Binary-Search-Tree/501.二叉搜索树中的众数.md)

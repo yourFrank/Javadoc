@@ -11,9 +11,9 @@ abbrlink: b6c6f05
 date: 2021-12-04 21:28:43
 ---
 
-# BeanDefinition放入档案馆的流程
+## BeanDefinition放入档案馆的流程
 
-## debug位置
+### debug位置
 
 上一节我们说到了DefaultListableBeanFactory是我们的档案馆（作为BeanDefinitionRegistry的实现类），存储了所有的**bean定义信息**，并且按照每个类名存储到了一个Map中
 
@@ -33,7 +33,7 @@ DefaultListableBeanFactory实现了BeanDefinitionRegistry接口，重写了它�
 
 
 
-## 测试类
+### 测试类
 
 **beans.xml:**
 
@@ -66,7 +66,7 @@ public class MainTest {
 
 ![image-20211207200551112](https://image.imxyu.cn/file/image-20211207200551112.png)
 
-## 首先创建Bean工厂
+### 首先创建Bean工厂
 
 当new的时候就开始注册Bean定义信息
 
@@ -92,9 +92,9 @@ public class MainTest {
 
 ![image-20211217194912917](https://image.imxyu.cn/file/image-20211217194912917.png)
 
-## 加载Bean定义信息
+### 加载Bean定义信息
 
-### 资源转换成Resource
+#### 资源转换成Resource
 
 然后创建了**XmlBeanDefinitionReader**， XML定义信息读取器，而该读取器组合了**ResourceLoader**，在这里设置了ResourceLoader为this,this对象就是我们当前调用的ClassPathXmlApplicationContext
 
@@ -122,7 +122,7 @@ public class MainTest {
 
 ![image-20211217203024042](https://image.imxyu.cn/file/image-20211217203024042.png)
 
-### resource封装
+#### resource封装
 
 同时在这里loadBeanDefinitions（resources）的时候将其包装了一下
 
@@ -134,13 +134,13 @@ public class MainTest {
 
 ![image-20211217204323957](https://image.imxyu.cn/file/image-20211217204323957.png)
 
-### resource解析成doc
+#### resource解析成doc
 
 接下来在类XMLBeanDefinitionReader中利用dom解析工具，将resource解析成document对象
 
 ![image-20211217204754344](https://image.imxyu.cn/file/image-20211217204754344.png)
 
-### 解析document对象
+#### 解析document对象
 
 随后使用BeanDefinitionDocumentReader 将document对象解析
 
@@ -170,7 +170,7 @@ root是整个document的根节点
 
 
 
-### 解析doc后生成BeanDefinitionHolder
+#### 解析doc后生成BeanDefinitionHolder
 
 解析完的标签都使用BeanDefinitionHolder装起来，然后使用工具类进行注册
 
@@ -182,7 +182,7 @@ BeanDefinitionHolder这个类包含了Bean定义信息和bean的名字以及别�
 
 ![image-20211217210052829](https://image.imxyu.cn/file/image-20211217210052829.png)
 
-## BeanDefinition注册到档案馆
+### BeanDefinition注册到档案馆
 
 随后进入注册的流程
 
@@ -202,9 +202,9 @@ BeanDefinitionHolder这个类包含了Bean定义信息和bean的名字以及别�
 
 ![image-20211217211533085](https://image.imxyu.cn/file/image-20211217211533085.png)
 
-# BeanDefinition创建的过程
+## BeanDefinition创建的过程
 
-## debug位置
+### debug位置
 
 我们之前说过通过**配置类**的@Import注解可以传入一个自定义的类，该类我们可以自己向容器中注册组件
 
@@ -226,7 +226,7 @@ BeanDefinitionHolder这个类包含了Bean定义信息和bean的名字以及别�
 
 ![image-20211217214917554](https://image.imxyu.cn/file/image-20211217214917554.png)
 
-## 根据id和class创建BeanDefinition
+### 根据id和class创建BeanDefinition
 
 这次断点进入到Bean定义信息的创建的步骤
 
@@ -264,13 +264,13 @@ BeanDefinitionHolder这个类包含了Bean定义信息和bean的名字以及别�
 
 ![image-20211217220648983](https://image.imxyu.cn/file/image-20211217220648983.png)
 
-## 设置Bean标签内部的其他信息
+### 设置Bean标签内部的其他信息
 
 先根据i**d和class创建好这个BeanDefintion后**，设置一些Bean标签里面的信息![image-20211217220823995](https://image.imxyu.cn/file/image-20211217220823995.png)
 
 
 
-# BeanDefinition注册流程图
+## BeanDefinition注册流程图
 
 ![image-20211205141803169](https://image.imxyu.cn/file/image-20211205141803169.png)
 

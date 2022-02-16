@@ -1,4 +1,0 @@
-- [返回上一级 [BFS-DFS]](算法/BFS-DFS/)
-- [Word_Search](算法/BFS-DFS/Word_Search/)
-  - [212.单词搜索II](算法/BFS-DFS/Word_Search/212.单词搜索II.md)
-  - [79.单词搜索](算法/BFS-DFS/Word_Search/79.单词搜索.md)

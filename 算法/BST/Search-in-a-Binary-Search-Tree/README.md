@@ -1,4 +1,0 @@
-- [返回上一级 [BST]](算法/BST/)
-- [Search-in-a-Binary-Search-Tree](算法/BST/Search-in-a-Binary-Search-Tree/)
-  - [700.二叉搜索树中的搜索](算法/BST/Search-in-a-Binary-Search-Tree/700.二叉搜索树中的搜索.md)
-  - [701.二叉搜索树中的插入操作](算法/BST/Search-in-a-Binary-Search-Tree/701.二叉搜索树中的插入操作.md)
