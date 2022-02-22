@@ -56,11 +56,15 @@
 
 这样断点来到了AppStarter的onStartup方法
 
+### ioc容器创建（空容器）
+
 这个方法中我们首先创建了ioc容器，在创建ioc容器的过程中并没有启动刷新容器
 
 然后创建了DispatcherServlet，容器刷新的过程是在这里进行的？
 
 ![image-20220209201330957](https://image.imxyu.cn/file/image-20220209201330957.png)
+
+### servlet创建启动->ioc容器刷新
 
 因为DispatcherServlet是servlet
 
@@ -80,13 +84,17 @@ Servlet规范会经历它的生命周期：
 
 ![image-20220209201559862](https://image.imxyu.cn/file/image-20220209201559862.png)
 
-在这个子类中首先了这个init方法
+### HttpServletBean实现了init初始化方法
+
+在这个子类中实现了这个init方法
 
 ![image-20220209202133463](https://image.imxyu.cn/file/image-20220209202133463.png)
 
-并且留了一个模板方法
+并且留了一个模板方法initServletBean();
 
 ![image-20220209202209136](https://image.imxyu.cn/file/image-20220209202209136.png)
+
+### FrameworkServlet在HttpServletBean留的模板方法中初始化ioc容器
 
 这个模板方法在子类FrameworkServlet中实现了。
 
@@ -105,5 +113,7 @@ spring容器就是在这里进行创建的
 接下来就是走spring容器刷新的十二大步
 
 ## 原理图
+
+> 右键在标签页中打开图片，ctrl 缩放浏览器查看大图
 
 ![SpringMVC原理(1)](https://image.imxyu.cn/file/SpringMVC%E5%8E%9F%E7%90%86(1).jpg)
