@@ -157,7 +157,7 @@ ModelAndView handle(HttpServletRequest request, HttpServletResponse response, Ob
 
 ## 处理RequestMappingHandlerAdapter的请求
 
-### HandlerAdapter中参数解析和返回值处理器
+### HandlerAdapter中参数解析和返回值处理器何时准备的？
 
 我们继续看如果是要执行一个方法，handlerAdapter是如何处理的？我们看之前的/hello请求
 
@@ -180,6 +180,8 @@ mv = ha.handle(processedRequest, response, mappedHandler.getHandler());
 ```
 
 这个就是adapter适配器的作用，把request, response, 和handler转换成modelAndview返回的过程
+
+> 的不同的适配器adapter的实现逻辑是不一样的，我们之前看了 HttpRequestHandlerAdapter和SimpleControllerHandlerAdapter的都是利用接口回调到我们自己实现的接口方法中处理，我们来看一下RequestMappingAdpater是怎么处理的？
 
 ![image-20220222205141687](https://image.imxyu.cn/file/image-20220222205141687.png)
 
@@ -249,3 +251,253 @@ if (this.returnValueHandlers != null) { //返回值解析器（无论原生的�
 可以看到这个方法中的逻辑如下
 
 ![image-20220222211841363](https://image.imxyu.cn/file/image-20220222211841363.png)
+
+### 参数解析器的工作流程
+
+接下来准备了一个ModelAndViewContainer， 这是以后流程共享ModelAndView数据的临时存储容器
+
+```
+ModelAndViewContainer mavContainer = new ModelAndViewContainer();
+```
+
+![image-20220228143751852](https://image.imxyu.cn/file/image-20220228143751852.png)
+
+接下来就是开始真正执行目标方法
+
+```java
+//真正开始执行目标方法
+invocableMethod.invokeAndHandle(webRequest, mavContainer);
+```
+
+在这个方法中第一步就是目标方法的反射执行，我们点进去看一下
+
+```java
+Object returnValue = invokeForRequest(webRequest, mavContainer, providedArgs);
+```
+
+![image-20220228143846546](https://image.imxyu.cn/file/image-20220228143846546.png)
+
+在这个方法中首先会找到方法参数的值，然后调用反射执行
+
+我们重点来看一下是怎么找到方法参数的值的？
+
+```java
+//获取方法的请求参数
+Object[] args = getMethodArgumentValues(request, mavContainer, providedArgs);
+```
+
+![image-20220228143947683](https://image.imxyu.cn/file/image-20220228143947683.png)
+
+```java
+@GetMapping("/hello2") // 所有的xxxMapping都是RequestMapping
+public String   sayHello(String name, //可以从请求参数中得到
+                   @RequestParam("user")String user, //可以从请求参数中得到
+                   HttpSession session, HttpServletRequest request, //原生的session对象
+                   @RequestHeader("User-Agent") String  ua,
+                   Model model,
+                   Integer i,
+                   RedirectAttributes ra){ //@RequestParam Map<String,Object> params：所有请求参数全封装进来
+```
+
+我们来模拟一个方法，可以看到这里面有很多参数。我们看一下是如何找到这些参数的值的
+
+可以看到首先拿到方法中的这8个参数，接下来准备了一个数组，挨个确定这8个参数的值，for循环中就是确定方法参数值的过程，最后确定好了之后给我们return回去，我们看一下是如何确定的？
+
+![image-20220228144451038](https://image.imxyu.cn/file/image-20220228144451038.png)
+
+```java
+if (!this.resolvers.supportsParameter(parameter)) { //支持这种参数的解析器也会被放到缓存，下一次进来，就不用27个人挨个判断
+```
+
+调用resolvers.supportsParameter（）方法
+
+![image-20220228144757391](https://image.imxyu.cn/file/image-20220228144757391.png)
+
+可以看到在这个方法中for循环每一个参数解析器，（一共27个），然后判断看哪个参数解析器能支持这个参数
+
+![image-20220228144751977](https://image.imxyu.cn/file/image-20220228144751977.png)
+
+参数解析器的接口和我们之前说的handlerMapping 一样，都是由两个方法。首先判断是否支持，如果支持的话使用另一个方法进行执行的过程
+
+> 这也是策略模式的体现
+
+
+
+![image-20220228144845886](https://image.imxyu.cn/file/image-20220228144845886.png)
+
+其实判断support的过程也非常简单，就是看参数上是否标明了相应的注解。这里举例了其中一个的判断
+
+![image-20220228145029770](https://image.imxyu.cn/file/image-20220228145029770.png)
+
+当找到了合适的参数解析器，就把这个参数和解析器放到缓存中
+
+下次同样的请求参数过来，就直接到缓存中取拿了。 spring底层有大量的缓存来加快框架的运行速度
+
+![image-20220228145108317](https://image.imxyu.cn/file/image-20220228145108317.png)
+
+返回后，就调用 this.resolvers.resolveArgument ，来执行解析参数的过程
+
+![image-20220228145249448](https://image.imxyu.cn/file/image-20220228145249448.png)
+
+这个resolver 是组合了这27个参数解析器和缓存
+
+![image-20220228145456445](https://image.imxyu.cn/file/image-20220228145456445.png)
+
+在这个方法中首先通过parmater，在cache中获取，然后进行赋值
+
+![image-20220228145707259](https://image.imxyu.cn/file/image-20220228145707259.png)
+
+这里面的方法就是调用原生的httprequest 和httpsession 等，帮我们赋值的过程
+
+![image-20220228145922304](https://image.imxyu.cn/file/image-20220228145922304.png)
+
+具体的就不看了
+
+![image-20220228150039205](https://image.imxyu.cn/file/image-20220228150039205.png)
+
+
+
+其他的几个参数的过程是一样的，拿到了所有的参数对应的值（保存在了这个object的数组中），直接调用反射执行方法
+
+![image-20220228150241763](https://image.imxyu.cn/file/image-20220228150241763.png)
+
+反射执行
+
+![image-20220228150329527](https://image.imxyu.cn/file/image-20220228150329527.png)
+
+
+
+> ```
+> //方法的签名，到底能写那些？
+> //详细参照 https://docs.spring.io/spring-framework/docs/current/reference/html/web.html#mvc-ann-arguments
+> //https://www.bilibili.com/video/BV19K4y1L7MT?p=32
+> ```
+
+比如
+
+```
+HttpSession session, HttpServletRequest request, //原生的request,session对象
+@RequestHeader("User-Agent") String  ua, //spring能帮我们获取header头中的信息帮我们赋值到这里面，不需要我们手动获得request再去获取相应的头、判断空等
+@RequestParam Map<String,Object> params //这个能直接把所有请求方法的参数的信息都保存到这个map的键值对中
+```
+
+
+
+### 返回值处理器的工作流程
+
+当参数解析器处理完了之后，返回了我们index.jsp
+
+接下来我们看一下返回值处理器是怎么工作的？
+
+```
+this.returnValueHandlers.handleReturnValue(
+      returnValue, getReturnValueType(returnValue), mavContainer, webRequest);
+```
+
+![image-20220228151800554](https://image.imxyu.cn/file/image-20220228151800554.png)
+
+首先要找到合适的返回值处理器
+
+```java
+HandlerMethodReturnValueHandler handler = selectHandler(returnValue, returnType); 
+```
+
+![image-20220228151907178](https://image.imxyu.cn/file/image-20220228151907178.png)
+
+可以看到，又是一个for循环。在15个中进行判断，看是否支持这个返回值类型
+
+![image-20220228151954985](https://image.imxyu.cn/file/image-20220228151954985.png)
+
+![image-20220228152031815](https://image.imxyu.cn/file/image-20220228152031815.png)
+
+这里找到了一个能处理的，我们是字符串类型，我们看一下这个是怎么判断的
+
+![image-20220228152154464](https://image.imxyu.cn/file/image-20220228152154464.png)
+
+![image-20220228152127014](https://image.imxyu.cn/file/image-20220228152127014.png)
+
+可以看到这个处理器能支持的就是void或者字符串类型的返回值
+
+下面就是他的处理器逻辑，可以看到如果返回值是字符串类型的，我们直接拿到返回的字符串设置到viewName 中，当作我们要返回的视图页面名
+
+![image-20220228152217409](https://image.imxyu.cn/file/image-20220228152217409.png)
+
+在这里面会有一个判断，看是否是重定向的方式，判断方式很简单，我们在路径前面可以通过redirect: 来标明
+
+重定向会设置一个重定向标志位
+
+```java
+if (isRedirectViewName(viewName)) { //是否是重定向的方式  redirect:
+```
+
+![image-20220228165650703](https://image.imxyu.cn/file/image-20220228165650703.png)
+
+```java
+//SpringMVC的目标方法能写哪些返回值
+//https://docs.spring.io/spring-framework/docs/current/reference/html/web.html#mvc-ann-return-types
+return "index.jsp";  //@PostMapping("/submit")  表单失败了  前一步，把表单中的数据放到ra中，  return  "redirect:form.jsp" //表单还能取到数据
+```
+
+### @ResponseBody注解
+
+>  我们知道这个返回值是支持很多类型的，如果我们标了@Responsebody注解，我们要求返回的是字符串，而不是对应的视图，那么就不是使用上面的返回值处理器
+
+我们注意到有一个RequestResponseBodyMethodProcessor 在这个view 处理器的前面，也就是说先会判断是否满足这个
+
+
+
+![image-20220228152916640](https://image.imxyu.cn/file/image-20220228152916640.png)
+
+判断是否标有这个注解
+
+![image-20220228153336144](https://image.imxyu.cn/file/image-20220228153336144.png)
+
+这就是这个处理器的执行过程
+
+![image-20220228153641201](https://image.imxyu.cn/file/image-20220228153641201.png)
+
+将我们的对象转换成json字符串。利用 HttpMessageConverter，直接读取输入输出流即可
+
+![image-20220228153814969](https://image.imxyu.cn/file/image-20220228153814969.png)
+
+### 封装一个ModelAndView对象返回
+
+这样我们返回的页面也处理完了，然后就调用getModelAndView ，封装数据和视图
+
+```java
+return getModelAndView(mavContainer, modelFactory, webRequest);
+```
+
+![image-20220228171436395](https://image.imxyu.cn/file/image-20220228171436395.png)
+
+这个就没什么好说的了，将我们上一步处理好的view视图创建一个modelAndView对象加入到modelAndView中
+
+如果我们设置了model数据，同样会将我们的model加入进去，然后返回。
+
+```java
+//这里会有一个判断，如果是重定向的请求，会加入到session中，而不是单独的一个request域，这样数据可以共享
+HttpServletRequest request = webRequest.getNativeRequest(HttpServletRequest.class);
+if (request != null) { //重定向数据的共享，RedirectView。先把数据移到request，再把request移到session
+   RequestContextUtils.getOutputFlashMap(request).putAll(flashAttributes);
+}
+```
+
+![image-20220228171617540](https://image.imxyu.cn/file/image-20220228171617540.png)
+
+### 没有返回视图给一个默认的路径
+
+adapter就处理完了，返回了一个ModelAndView， 然后下面会有一个applyDefaultViewName(processedRequest, mv);
+
+这个方法会判断，如果我们没有返回的视图名，则会给我们一个默认的视图名
+
+![image-20220228172412407](https://image.imxyu.cn/file/image-20220228172412407.png)
+
+这个默认的路径就是我们访问的路径
+
+> 也就是说如果我们访问/hello ，没有指定返回的路径（比如说方法是void类型） 那么就会给我们设置一个默认的路径，这个路径就是我们访问的路径
+
+![image-20220228182343744](https://image.imxyu.cn/file/image-20220228182343744.png)
+
+接下来就是处理modelAndView 进行视图渲染，这里会catch到上面过程出现的异常，并且把异常也传了进去，我们下一节再讲 
+
+![image-20220228184246700](https://image.imxyu.cn/file/image-20220228184246700.png)
