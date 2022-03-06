@@ -5,9 +5,7 @@
 * 自己的组件能生效
 * SpringMvc默认的也能生效
 
-通过这2个注解就可以实现：
-
-@EnableWebMvc+@WebMvcConfigure
+通过@EnableWebMvc注解+实现WebMvcConfigurer 接口即可
 
 我们可以通过过在配置类上标注@EnableWebMvc，并且实现WebMvcConfigurer接口的方法即可
 
@@ -143,7 +141,37 @@ public class DelegatingWebMvcConfiguration extends WebMvcConfigurationSupport {
 >
 > 此时我们的这个注解import的类就帮我们实现了创建九大组件，同时支持我们自定义组件的注入，dispatcherServlet容器此时判断不为空就不会去用它去创建九大组件了
 
-### 图解
+
+
+## 自定义组件后没有了默认的组件
+
+当我们自定义组件注入后，会发现容器中没有了默认的internalViewResolver，这可不太好。因为其他的很多默认的转发和重定向功能还是需要这个解析器的
+
+![image-20220305170917089](https://image.imxyu.cn/file/image-20220305170917089.png)
+
+可以看到源码中定义的，父类中定义的先会调用我们实现的看是否有扩展的，如果有扩展了就不会走下面的添加默认的了。
+
+那么我们既想加默认的又想加自己的怎么办呢？
+
+> 这里为什么是判断容器中有一个组件呢？ name.length==1 呢？是因为这里通过@Bean把这个mvcViewResolver 加入到里面了，所以容器中会有它自己
+
+![image-20220305170217675](https://image.imxyu.cn/file/image-20220305170217675.png)
+
+### 不改源码
+
+一种方法就是我们可以在下面手动加入进去
+
+![image-20220305170525408](https://image.imxyu.cn/file/image-20220305170525408.png)
+
+### 改源码
+
+直接改源码，把原来的逻辑换一下，让它必须放入这个组件
+
+![image-20220305170841858](https://image.imxyu.cn/file/image-20220305170841858.png)
+
+
+
+## @EnableWebMvc原理图解
 
 ![EnableWebMVC注解原理](https://image.imxyu.cn/file/EnableWebMVC%E6%B3%A8%E8%A7%A3%E5%8E%9F%E7%90%86.jpg)
 
